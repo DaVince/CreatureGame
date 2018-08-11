@@ -1,0 +1,10 @@
+TODO:
+
+- Implement HUD/GUI
+- Implement mouse
+- Implement mouse interaction with map (adding/removing walls)
+
+- Make scaling mechanism more global so that both the map can zoom out and the creature zoom accordingly
+
+- Add methods to slowly deteriorate walls
+- Connect deterioration mechanism to collision code (provided by Rhuan)
