@@ -76,7 +76,7 @@ export class CEngine
      * @returns {array} collisions
      * @memberof CEngine
      */
-    collide(ref, layer, x, y, d_x=0, d_y=0, polygons)
+    collide(ref, layer, x, y, d_x=0, d_y=0, polygons, notSprite = false)
     {
         let i = 0, j = 0, k = 0, l = 0;
         const collisions = [];
@@ -290,7 +290,7 @@ export class CEngine
                         }
                     }
                 }
-                if (this.SEngine.entities[ref].attached === true)
+                if (notSprite === false && this.SEngine.entities[ref].attached === true)
                 {
                     map.leaving = true;
                     map.player = this.SEngine.entities[ref];

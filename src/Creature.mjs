@@ -24,6 +24,8 @@ export class TheCreature
 			{ time: 56, image: "creature08.png", hitbox: [] },
 		];
 
+		this.creatureTransform = new Transform();
+
 		this.reloadpic();
 		this.scale();
 	}
@@ -46,18 +48,22 @@ export class TheCreature
 		}
 
 		this.width+=this.scalefactor;
-    this.height = this.width*this.aspect;
-    this.creatureTransform.identity();
-    //SSj.log(Creature.width/currentpic.width, Creature.height/currentpic.height);
-    this.scale();
+		this.height = this.width*this.aspect;
+		this.creatureTransform.identity();
+		//SSj.log(Creature.width/currentpic.width, Creature.height/currentpic.height);
+		this.scale();
 		
 		this.bpm++;
 	}
 
 	scale()
 	{
-		this.creatureTransform.scale(this.width/this.currentpic.width, this.height/this.currentpic.height);
-    this.creatureTransform.translate(640-(this.width/2), 360-(this.height/2));
+		const widthFact = this.width/this.currentpic.width;
+		const heightFact = this.height/this.currentpic.height;
+		this.creatureTransform.scale(widthFact, heightFact);
+		this.x = 640-(this.width/2);
+		this.y = 360-(this.height/2);
+		this.creatureTransform.translate(this.x, this.y);
 	}
 
 	/* Load in the new image and set the values. */
@@ -65,10 +71,10 @@ export class TheCreature
 	{
 		if (this.pictures.length == 0) return;
 		this.currentpic = new Texture("@/images/" + this.pictures[0].image);
-		this.currenthitboxes = this.pictures[0].hitbox;
-		this.creatureTransform = new Transform();
+		this.currenthitboxes = [new Polygon(1, 0, 0, this.currentpic.width, this.currentpic.height)];//this.pictures[0].hitbox;
+		this.creatureTransform.identity();
 		this.aspect = this.currentpic.height/this.currentpic.width;
-		this.height = this.width*this.aspect;
+		this.height = this.width * this.aspect;
 		this.creatureShape = HUDSystem.render(this.currentpic, 0, 0, this.currentpic.width, this.currentpic.height);
 	}
 
@@ -82,5 +88,16 @@ export class TheCreature
 	}
 }
 
+class Polygon
+{
+    constructor(type, x, y, w, h)
+    {
+        this.type = type; // 0 = circle, 1 = rectangle
+        this.x    = x; //to left corner for rectangle, centre for circle
+        this.y    = y;
+        this.w    = w; //width for rectangle, radius for circle
+        this.h    = h;
+    }
+}
 
 export let Creature = new TheCreature();
