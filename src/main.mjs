@@ -1,7 +1,7 @@
 import MapEngine from './lib/map-engine';
 import { GameState } from './GameState';
 
-const mapSys = new MapEngine();
+export const mapSys = new MapEngine();
 mapSys.addInput(Key.Escape, Sphere.shutDown);
 mapSys.addInput(Key.Hyphen, () => mapSys.camera.zoom += 0.1);
 mapSys.addInput(Key.Equals, () => mapSys.camera.zoom -= 0.1);

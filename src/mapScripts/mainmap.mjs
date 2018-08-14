@@ -13,7 +13,7 @@ export const mapScripts =
   },
   onUpdate (runTime, map)
   {
-    gameState.update();
+    gameState.update(map);
   },
   onRender (runTime, map)
   {
